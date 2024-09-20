@@ -10,7 +10,7 @@ export default function ConvertCurrency() {
   const [amount, setAmount] = useState(1);
   const [defaultValue, setDefaultValue] = useState(1);
   const [baseCurrency, setBaseCurrency] = useState("USD");
-  const [targetCurrency, setTargetCurrency] = useState("EUR");
+  const [targetCurrency, setTargetCurrency] = useState("NGN");
   const [result, setResult] = useState(null);
   const [searchTerm, setSearchTerm] = useState("");
   const [searchTerms, setSearchTerms] = useState("");

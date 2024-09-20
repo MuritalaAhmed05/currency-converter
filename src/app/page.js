@@ -3,6 +3,7 @@ import React, { useState, useEffect } from "react"; // Single import statement f
 import DateFormat from "./Date";
 import { MdSwapVerticalCircle } from "react-icons/md";
 import { MdSwapHorizontalCircle } from "react-icons/md";
+import { ImSpinner3 } from "react-icons/im";
 export default function ConvertCurrency() {
   const [rates, setRates] = useState(null);
   const [error, setError] = useState(null);
@@ -37,7 +38,9 @@ export default function ConvertCurrency() {
   }
 
   if (!rates) {
-    return <div>Loading...</div>;
+    return <div className=" flex justify-center items-center min-h-screen">
+     <ImSpinner3 className="animate-spin text-blue-900 h-10 w-10"/>
+    </div>;
   }
 
   const handleCoverter = () => {
@@ -54,8 +57,8 @@ export default function ConvertCurrency() {
     (defaultValue / rates[baseCurrency]) * rates[targetCurrency];
 
   return (
-    <div className="px-8 py-9 flex flex-col items-center">
-      <h1 className="text-blue-900 font-bold text-[1.5rem] sm:text-[2.25rem] text-center ">
+    <div className="px-8 py-9 flex flex-col items-center  min-h-screen justify-center">
+      <h1 className="text-blue-900 font-bold text-[2rem] sm:text-[2.25rem] text-center ">
         Currency Converter
       </h1>
       <p className="text-center font-sans font-medium">

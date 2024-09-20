@@ -12,6 +12,8 @@ export default function ConvertCurrency() {
   const [baseCurrency, setBaseCurrency] = useState("USD");
   const [targetCurrency, setTargetCurrency] = useState("EUR");
   const [result, setResult] = useState(null);
+  const [searchTerm, setSearchTerm] = useState("");
+  const [searchTerms, setSearchTerms] = useState("");
   useEffect(() => {
     const getCurrency = async () => {
       try {
@@ -56,6 +58,13 @@ export default function ConvertCurrency() {
   const conversion =
     (defaultValue / rates[baseCurrency]) * rates[targetCurrency];
 
+    const filteredCurrencies = Object.keys(rates).filter((currency) =>
+      currency.toLowerCase().includes(searchTerm.toLowerCase())
+    );
+
+    const filtereCurrencies = Object.keys(rates).filter((currency) =>
+      currency.toLowerCase().includes(searchTerms.toLowerCase())
+    );
   return (
     <div className="px-8  flex flex-col items-center  min-h-screen justify-center">
       <h1 className="text-blue-900 font-bold text-[2rem] sm:text-[2.25rem] text-center ">
@@ -65,7 +74,22 @@ export default function ConvertCurrency() {
         Check live rate here!!
       </p>
       <div className=" w-full max-w-xs mx-auto bg-white mt-[4rem] min-w-5 shadow-elevated rounded-[20px] p-7">
+        
+        
         <p className="text-xs font-medium text-gray-600">Amount</p>
+        <div>
+        <label className="block mb-2 text-sm font-medium text-gray-700">
+          Search Currency:
+        </label>
+        <input
+          type="text"
+          value={searchTerm}
+          onChange={(e) => setSearchTerm(e.target.value)}
+          placeholder="Search for a currency"
+          className="p-2 border border-gray-300 rounded-lg w-full mb-4"
+        />
+      
+        </div>
         <div className="flex gap-9">
           <div>
             <label>
@@ -74,9 +98,9 @@ export default function ConvertCurrency() {
                 onChange={(e) => setBaseCurrency(e.target.value)}
                 className="p-2 bg-transparent text-blue-900 font-bold outline-none"
               >
-                {Object.keys(rates).map((currency) => (
-                  <option key={currency} value={currency}>
-                    {currency}
+                 {filteredCurrencies.map((currency) => (
+              <option key={currency} value={currency}>
+                {currency}
                   </option>
                 ))}
               </select>
@@ -104,6 +128,19 @@ export default function ConvertCurrency() {
           <p className="text-xs font-medium text-gray-600 mb-3">
             Converted Amount
           </p>
+          <div>
+        <label className="block mb-2 text-sm font-medium text-gray-700">
+          Search Currency:
+        </label>
+        <input
+          type="text"
+          value={searchTerms}
+          onChange={(e) => setSearchTerms(e.target.value)}
+          placeholder="Search for a currency"
+          className="p-2 border border-gray-300 rounded-lg w-full mb-4"
+        />
+      
+        </div>
           <div className="flex gap-9">
             <div>
               <label>
@@ -112,9 +149,9 @@ export default function ConvertCurrency() {
                   onChange={(e) => setTargetCurrency(e.target.value)}
                   className="p-2 bg-transparent text-blue-900 font-bold outline-none"
                 >
-                  {Object.keys(rates).map((currency) => (
-                    <option key={currency} value={currency}>
-                      {currency}
+                 {filtereCurrencies.map((currency) => (
+              <option key={currency} value={currency}>
+                {currency}
                     </option>
                   ))}
                 </select>

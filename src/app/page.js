@@ -66,7 +66,7 @@ export default function ConvertCurrency() {
       currency.toLowerCase().includes(searchTerms.toLowerCase())
     );
   return (
-    <div className="px-8  flex flex-col items-center  min-h-screen justify-center">
+    <div className="px-8 py-9 flex flex-col items-center  min-h-screen justify-center">
       <h1 className="text-blue-900 font-bold text-[2rem] sm:text-[2.25rem] text-center ">
         Currency Converter
       </h1>

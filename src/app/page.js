@@ -15,7 +15,7 @@ export default function ConvertCurrency() {
   useEffect(() => {
     const getCurrency = async () => {
       try {
-        const YOUR_ACCESS_KEY = "f37cc2a7fcea742ef4534b0709597832";
+        const YOUR_ACCESS_KEY = "7d75b1e7e2e71c29ae886cdf8740c1bc";
         const url = `https://data.fixer.io/api/latest?access_key=${YOUR_ACCESS_KEY}`;
         const response = await fetch(url);
         const data = await response.json();

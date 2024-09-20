@@ -55,13 +55,13 @@ export default function ConvertCurrency() {
 
   return (
     <div className="px-8 flex flex-col items-center">
-      <h1 className="text-blue-900 font-bold text-[2.25rem] text-center ">
+      <h1 className="text-blue-900 font-bold text-[1.5rem] sm:text-[2.25rem] text-center ">
         Currency Converter
       </h1>
       <p className="text-center font-sans font-medium">
         Check live rate here!!
       </p>
-      <div className=" max-w-[400px] bg-white mt-[4rem] min-w-10 shadow-elevated rounded-[20px] p-7">
+      <div className=" max-w-[400px] bg-white mt-[4rem] min-w-8 shadow-elevated rounded-[20px] p-7">
         <p className="text-xs font-medium text-gray-600">Amount</p>
         <div className="flex gap-9">
           <div>

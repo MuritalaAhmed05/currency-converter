@@ -8,7 +8,7 @@ import { ImSpinner3 } from "react-icons/im";
 export default function ConvertCurrency() {
   const [rates, setRates] = useState(null);
   const [error, setError] = useState(null);
-  const [amount, setAmount] = useState(null);
+  const [amount, setAmount] = useState("");
   const [defaultValue, setDefaultValue] = useState(1);
   const [baseCurrency, setBaseCurrency] = useState("USD");
   const [targetCurrency, setTargetCurrency] = useState("NGN");
@@ -54,10 +54,17 @@ export default function ConvertCurrency() {
 
 
   useEffect(() => {
-    if (amount && rates) {
-      handleCoverter(); // Ensure this effect runs when dependencies change
+    if (amount !== "" && rates) {
+      handleCoverter(); 
+    } else if (amount === ""){
+      setResult("")
     }
   }, [amount, baseCurrency, targetCurrency, rates]);
+
+// if(amount === ""){
+//   setResult("")
+//   return;
+// }
 
 
   if (error) {
@@ -69,12 +76,7 @@ export default function ConvertCurrency() {
      <ImSpinner3 className="animate-spin text-blue-900 h-10 w-10"/>
     </div>;
   }
-
-  
-  
-     
-    
-     
+        
 
   const conversion =
     (defaultValue / rates[baseCurrency]) * rates[targetCurrency];

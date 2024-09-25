@@ -1,49 +1,46 @@
 "use client";
 import React, { useState, useEffect } from "react"; // Single import statement for React and hooks
 import DateFormat from "./Date";
-import { MdSwapVerticalCircle } from "react-icons/md";
-import { MdSwapHorizontalCircle } from "react-icons/md";
+import { MdSwapVerticalCircle, MdSwapHorizontalCircle} from "react-icons/md";
 import { ImSpinner3 } from "react-icons/im";
+
+
 export default function ConvertCurrency() {
   const [rates, setRates] = useState(null);
   const [error, setError] = useState(null);
-  const [amount, setAmount] = useState(1);
+  const [amount, setAmount] = useState(null);
   const [defaultValue, setDefaultValue] = useState(1);
   const [baseCurrency, setBaseCurrency] = useState("USD");
   const [targetCurrency, setTargetCurrency] = useState("NGN");
   const [result, setResult] = useState(null);
   const [searchTerm, setSearchTerm] = useState("");
   const [searchTerms, setSearchTerms] = useState("");
+
+
+
+
+  
   useEffect(() => {
     const getCurrency = async () => {
       try {
-        const YOUR_ACCESS_KEY = "7d75b1e7e2e71c29ae886cdf8740c1bc";
-        const url = `https://data.fixer.io/api/latest?access_key=${YOUR_ACCESS_KEY}`;
+        const ACCESS_KEY = "afca0f3dbfc1df97e5abb055c4393cef";
+        const url = `https://data.fixer.io/api/latest?access_key=${ACCESS_KEY}`;
         const response = await fetch(url);
         const data = await response.json();
-        console.log(data);
-        if (data.success) {
+          if (data.success) {
           setRates(data.rates);
         } else {
           setError(data.error.code);
         }
       } catch (err) {
-        setError("An error occurred while fetching the data");
+        setError("Check your internet connection");
       }
     };
 
     getCurrency();
   }, []);
 
-  if (error) {
-    return <div>Error: {error}</div>;
-  }
 
-  if (!rates) {
-    return <div className=" flex justify-center items-center min-h-screen">
-     <ImSpinner3 className="animate-spin text-blue-900 h-10 w-10"/>
-    </div>;
-  }
 
   const handleCoverter = () => {
     if (!rates || !rates[baseCurrency] || !rates[targetCurrency]) {
@@ -55,6 +52,30 @@ export default function ConvertCurrency() {
     setResult(convertedAmount.toFixed(2));
   };
 
+
+  useEffect(() => {
+    if (amount && rates) {
+      handleCoverter(); // Ensure this effect runs when dependencies change
+    }
+  }, [amount, baseCurrency, targetCurrency, rates]);
+
+
+  if (error) {
+    return <div> {error}</div>;
+  }
+
+  if (!rates) {
+    return <div className=" flex justify-center items-center min-h-screen">
+     <ImSpinner3 className="animate-spin text-blue-900 h-10 w-10"/>
+    </div>;
+  }
+
+  
+  
+     
+    
+     
+
   const conversion =
     (defaultValue / rates[baseCurrency]) * rates[targetCurrency];
 
@@ -65,6 +86,7 @@ export default function ConvertCurrency() {
     const filtereCurrencies = Object.keys(rates).filter((currency) =>
       currency.toLowerCase().includes(searchTerms.toLowerCase())
     );
+    
   return (
     <div className="px-8 py-9 flex flex-col items-center  min-h-screen justify-center">
       <h1 className="text-blue-900 font-bold text-[2rem] sm:text-[2.25rem] text-center ">
@@ -112,7 +134,10 @@ export default function ConvertCurrency() {
               <input
                 type="number"
                 value={amount}
-                onChange={(e) => setAmount(e.target.value)}
+                onChange={(e) =>
+                  setAmount(e.target.value)
+                // handleCoverter();
+              }
                 className="p-2 rounded-lg border-none bg-[#DBDBDB] outline-none w-full"
               />
             </label>
@@ -135,7 +160,9 @@ export default function ConvertCurrency() {
         <input
           type="text"
           value={searchTerms}
-          onChange={(e) => setSearchTerms(e.target.value)}
+          onChange={(e) => setSearchTerms(e.target.value)
+            
+          }
           placeholder="Search for a currency"
           className="p-2 border border-gray-300 rounded-lg w-full mb-4"
         />
@@ -173,12 +200,12 @@ export default function ConvertCurrency() {
       </div>
 
       <div className="flex justify-center items-center my-3 mb-8">
-        <button
+        {/* <button
           onClick={handleCoverter}
           className="p-2 px-9 mt-4 bg-blue-500 text-white self-center rounded"
         >
           Convert
-        </button>
+        </button> */}
       </div>
 
       {result !== null && (
